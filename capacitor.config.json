@@ -1,0 +1,21 @@
+{
+    "appId": "com.raya.patient",
+    "appName": "raya-clinic",
+    "bundledWebRuntime": false,
+    "npmClient": "yarn",
+    "webDir": "build",
+    "plugins": {
+        "SplashScreen": {
+          "launchShowDuration": 3000,
+          "launchAutoHide": true,
+          "backgroundColor": "#3E4950",
+          "androidSplashResourceName": "splash",
+          "androidScaleType": "CENTER_CROP"
+        }
+      },
+      "ios": {
+        "contentInset": "always",
+        "backgroundColor":"#3E4950"
+      },
+    "cordova": {}
+  }

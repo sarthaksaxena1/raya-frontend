@@ -1,0 +1,228 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assests/fonts/Montserrat/Montserrat-Regular.eot");
+  src: url("/assests/fonts/Montserrat/Montserrat-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-Regular.otf") format("opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-Regular.svg") format("svg"),
+    url("/assests/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype"),
+    url("/assests/fonts/Montserrat/Montserrat-Regular.woff") format("woff"),
+    url("/assests/fonts/Montserrat/Montserrat-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assests/fonts/Montserrat/Montserrat-Medium.eot");
+  src: url("/assests/fonts/Montserrat/Montserrat-Medium.eot?#iefix")
+      format("embedded-opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-Medium.otf") format("opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-Medium.svg") format("svg"),
+    url("/assests/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype"),
+    url("/assests/fonts/Montserrat/Montserrat-Medium.woff") format("woff"),
+    url("/assests/fonts/Montserrat/Montserrat-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assests/fonts/Montserrat/Montserrat-SemiBold.eot");
+  src: url("/assests/fonts/Montserrat/Montserrat-SemiBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-SemiBold.otf") format("opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-SemiBold.svg") format("svg"),
+    url("/assests/fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype"),
+    url("/assests/fonts/Montserrat/Montserrat-SemiBold.woff") format("woff"),
+    url("/assests/fonts/Montserrat/Montserrat-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assests/fonts/Montserrat/Montserrat-Bold.eot");
+  src: url("/assests/fonts/Montserrat/Montserrat-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-Bold.otf") format("opentype"),
+    url("/assests/fonts/Montserrat/Montserrat-Bold.svg") format("svg"),
+    url("/assests/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype"),
+    url("/assests/fonts/Montserrat/Montserrat-Bold.woff") format("woff"),
+    url("/assests/fonts/Montserrat/Montserrat-Bold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  position: relative;
+}
+
+@layer base {
+  body {
+    font-family: "Montserrat";
+    font-weight: 400;
+  }
+  h1 {
+    @apply text-4xl font-semibold;
+    color: #404040;
+  }
+  h2 {
+    @apply text-3xl font-medium;
+  }
+  h3 {
+    @apply text-xl;
+  }
+}
+
+.raya-table-card {
+  .ant-card-body {
+    @apply pb-3;
+  }
+}
+
+.raya-list-card {
+  .ant-card-head-title {
+    @apply pr-2 overflow-hidden whitespace-normal overflow-ellipsis break-all;
+  }
+  .ant-card-body {
+    max-height: 480px;
+    @apply overflow-auto;
+  }
+}
+
+.time-slot-card {
+  .ant-card-body {
+    @apply py-4 px-4;
+  }
+}
+
+.am-list-body {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  ::after {
+    height: 0 !important;
+    content: none !important;
+  }
+  ::before {
+    height: 0 !important;
+    content: none !important;
+  }
+}
+
+.date-text-lg {
+  .ant-picker-input {
+    input {
+      @apply text-base;
+    }
+  }
+}
+
+.raya-signup-form {
+  .ant-form-item {
+    .ant-form-item-label {
+    }
+  }
+
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input) {
+    .ant-select-selector {
+      @apply h-14 p-3 shadow-md rounded-md;
+    }
+  }
+
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input)
+    .ant-select-selector::after,
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input)
+    .ant-select-selector
+    .ant-select-selection-item,
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input)
+    .ant-select-selector
+    .ant-select-selection-placeholder {
+    line-height: 20px;
+    @apply text-sm;
+    @apply pt-2;
+  }
+
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input):not(.ant-select-customize-input)
+    .ant-select-selection-search-input {
+    height: 54px;
+  }
+}
+
+// home page
+.home-page-vaccination-location-card {
+  @apply w-full h-full;
+  .ant-card-head {
+    @apply border-none bg-opacity-50 rounded-t-md;
+    background-color: #fff5e5;
+    .ant-card-head-title {
+      @apply whitespace-normal py-4;
+    }
+  }
+  .ant-card-body {
+    @apply p-0 flex;
+  }
+}
+
+.covid-vaccination {
+  .ant-collapse-item {
+    border-bottom: 0.5px solid #d4dde9;
+  }
+}
+
+.innoculation-heading {
+  writing-mode: vertical-lr;
+  display: inline;
+  transform: rotate(180deg) translateX(-20px);
+  font-size: 75px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.medical-history-select {
+  .ant-select-item-option-content {
+    word-break: break-all;
+    overflow: auto;
+    white-space: normal;
+  }
+}
+.ceir-select {
+  .ant-select-item-option-content {
+    word-break: break-all;
+    overflow: auto;
+    white-space: normal;
+  }
+}
+
+.ceir-select-search {
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input):not(.ant-select-customize-input) {
+    .ant-select-selection-search-input {
+      height: 54px;
+    }
+  }
+}
+
+.ant-select-multiple.ant-select-lg {
+  .ant-select-selection-item {
+    height: auto;
+    line-height: 32px;
+  }
+}
+.ant-select-multiple {
+  .ant-select-selection-item-content {
+    overflow: auto;
+    white-space: pre-wrap;
+    text-overflow: initial;
+    word-break: break-all;
+  }
+}

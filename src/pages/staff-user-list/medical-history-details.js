@@ -1,0 +1,160 @@
+import { useDispatch, useSelector } from "react-redux";
+import { updatePatientMedicalHistory } from "../../appRedux/actions/MedicalHistory";
+import { adminGetPatientVaccinatinStatus } from "../../appRedux/actions/UserList";
+import { find } from "lodash";
+import moment from "moment";
+import { Row, Col, Form, Input, Button, Radio, Divider, Tag } from "antd";
+import useWindowDimensions from "../../helpers/window-dimensions";
+
+export const MedicalHistoryDetails = ({
+  handleMedicalModalClose,
+  vaccineDoseNumber,
+}) => {
+  const { medicalHistoryData, medicalQuestions } = useSelector(
+    ({ medicalHistory }) => medicalHistory
+  );
+  const { patientVaccinationStatusId } = useSelector(
+    ({ userList }) => userList
+  );
+  const { height, width } = useWindowDimensions();
+  const dispatch = useDispatch();
+
+  const onFinish = (values) => {
+    dispatch(
+      updatePatientMedicalHistory(
+        patientVaccinationStatusId,
+        {
+          medical_history_verified_date: moment().format("YYYY-MM-DD H:mm:ss"),
+          remarks: values.remarks,
+          waiting_period: values.waiting_period,
+        },
+        vaccineDoseNumber,
+        () => {
+          dispatch(adminGetPatientVaccinatinStatus(patientVaccinationStatusId,vaccineDoseNumber));
+          handleMedicalModalClose();
+        }
+      )
+    );
+  };
+
+  const setMedicalHistoryData = () => {
+    return medicalHistoryData.medical_data
+      ? medicalHistoryData.medical_data.map((value) => ({
+          question: find(medicalQuestions.data, {
+            id: Number(value.question_id),
+          }).name,
+          questionTags: find(medicalQuestions.data, {
+            id: Number(value.question_id),
+          }).question_tags,
+          answer: value.answer,
+          symptoms: value.symptoms,
+          remarks: value.remarks,
+          date: value.date,
+        }))
+      : [];
+  };
+
+  return (
+    <div style={{ height: height - 200, overflowY: "auto" }}>
+      {setMedicalHistoryData().map((val, index) => (
+        <>
+          <Row key={index} className="mb-4">
+            <Col xs={20}>
+              <span className=" text-lg font-semi-bold">
+                {index + 1}. {val.question}
+              </span>
+              {val.symptoms && val.symptoms.length > 0 ? (
+                <ul className="list-disc ml-8 mt-2">
+                  {Array.isArray(val.symptoms) ? (
+                    val.symptoms.map((value, index) => (
+                      <li key={index} className="text-lg font-semi-bold">
+                        {value}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="text-lg font-semi-bold">{val.symptoms}</li>
+                  )}
+                </ul>
+              ) : val.questionTags ? (
+                <ul className="list-disc ml-8 mt-2">
+                  {val.questionTags.map((value, index) => (
+                    <li key={index} className="text-lg break-all">
+                      {value}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {val.date ? (
+                <ul className="list-disc ml-8 mt-2">
+                  <li className="text-lg break-words">Date : {val.date}</li>
+                </ul>
+              ) : null}
+              {val.remarks ? (
+                <ul className="list-disc ml-8 mt-2">
+                  <li className="text-lg break-words">
+                    Remarks : {val.remarks}
+                  </li>
+                </ul>
+              ) : null}
+            </Col>
+            <Col xs={4} className="text-right">
+              <span className=" text-lg font-semi-bold break-all mr-4">
+                {val.answer === "Yes" ? (
+                  <Tag color="error" className="text-lg">
+                    Yes
+                  </Tag>
+                ) : (
+                  <p className="mr-9 text-lg font-semi-bold">No</p>
+                )}
+              </span>
+            </Col>
+          </Row>
+          <Divider />
+        </>
+      ))}
+      {!medicalHistoryData.is_verified ? (
+        <Form layout="vertical" onFinish={onFinish}>
+          <Form.Item
+            label="Enter remarks"
+            name="remarks"
+            rules={[
+              { required: true, message: "Please enter remarks" },
+              { max: 100, message: "Maximum 100 characters allowed" },
+            ]}
+            className="mb-2"
+          >
+            <Input.TextArea className="w-7/12" />
+          </Form.Item>
+
+          <Form.Item
+            label="Patient monitoring period"
+            name="waiting_period"
+            rules={[{ required: true, message: "Please select one option" }]}
+            className="mb-2 pt-2"
+          >
+            <Radio.Group>
+              <Radio value="15 MINS">15 Mins.</Radio>
+              <Radio value="30 MINS">30 Mins.</Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      ) : (
+        <Row className="mb-4">
+          <Col xs={24}>
+            <span className=" text-lg font-bold">Remarks:</span>
+          </Col>
+          <Col xs={24}>
+            <span className=" text-lg font-semi-bold break-all">
+              {medicalHistoryData.remarks}
+            </span>
+          </Col>
+        </Row>
+      )}
+    </div>
+  );
+};

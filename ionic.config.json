@@ -1,0 +1,7 @@
+{
+    "name": "rayaHealth",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}
